@@ -1,0 +1,153 @@
+index.html
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Minikurz: Ako si určiť ciele a konečne ich splniť</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f9fb;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .quiz-question {
+            margin: 10px 0;
+        }
+        .quiz input {
+            padding: 5px;
+            margin-top: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .quiz button {
+            margin-top: 10px;
+        }
+        .note-area {
+            width: 100%;
+            height: 100px;
+        }
+        .nav-button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .nav-button:hover {
+            background-color: #2980b9;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="section" id="section1">
+        <h1>Vitaj v minikurze!</h1>
+        <p>Tento kurz ti pomôže nastaviť si ciele a konečne ich splniť. Kurz potrvá približne 1 hodinu. Klikni na „Pokračovať“.</p>
+        <button class="nav-button" onclick="nextSection('section1','section2')">Pokračovať</button>
+    </div>
+
+    <div class="section hidden" id="section2">
+        <h2>1. Prečo si stanoviť ciele?</h2>
+        <p>Bez cieľov sa človek ľahko stratí. Keď si určíš konkrétny cieľ, získaš smer, motiváciu a šancu napredovať.</p>
+        <div class="quiz">
+            <div class="quiz-question">
+                <p>🔍 Kvíz: Čo ti môže pomôcť získať motiváciu?</p>
+                <input type="text" id="q1" />
+                <button onclick="checkQuiz('q1', 'cieľ', 'result1')">Skontrolovať</button>
+                <p id="result1"></p>
+            </div>
+        </div>
+        <button class="nav-button" onclick="nextSection('section2','section3')">Pokračovať</button>
+    </div>
+
+    <div class="section hidden" id="section3">
+        <h2>2. Ako na správne ciele - SMART</h2>
+        <ul>
+            <li><strong>S</strong> – Špecifický</li>
+            <li><strong>M</strong> – Merateľný</li>
+            <li><strong>A</strong> – Dosiahnuteľný</li>
+            <li><strong>R</strong> – Relevantný</li>
+            <li><strong>T</strong> – Časovo ohraničený</li>
+        </ul>
+        <div class="quiz-question">
+            <p>📘 Čo znamená „T“ v SMART?</p>
+            <input type="text" id="q2" />
+            <button onclick="checkQuiz('q2', 'časovo ohraničený', 'result2')">Skontrolovať</button>
+            <p id="result2"></p>
+        </div>
+        <button class="nav-button" onclick="nextSection('section3','section4')">Pokračovať</button>
+    </div>
+
+    <div class="section hidden" id="section4">
+        <h2>3. Rozdelenie cieľa na kroky</h2>
+        <p>Každý veľký cieľ si rozdeľ na menšie časti. Pomôže ti to nepreťažiť sa a sledovať pokrok.</p>
+        <textarea class="note-area" placeholder="Sem si napíš aspoň 3 menšie kroky k tvojmu cieľu..."></textarea>
+        <button class="nav-button" onclick="nextSection('section4','section5')">Pokračovať</button>
+    </div>
+
+    <div class="section hidden" id="section5">
+        <h2>4. Tvoj akčný plán</h2>
+        <p>Napíš si svoj vlastný plán:</p>
+        <ul>
+            <li>🎯 Čo chceš dosiahnuť?</li>
+            <li>🧠 Prečo to chceš?</li>
+            <li>📅 Do kedy?</li>
+            <li>✅ Kroky, ktoré urobíš</li>
+        </ul>
+        <textarea class="note-area" placeholder="Sem si zapíš svoj akčný plán..."></textarea>
+        <button class="nav-button" onclick="nextSection('section5','section6')">Pokračovať</button>
+    </div>
+
+    <div class="section hidden" id="section6">
+        <h2>🎉 Gratulujeme!</h2>
+        <p>Dokončil si minikurz. Teraz máš plán a prvé kroky k dosiahnutiu svojich cieľov. Ulož si poznámky a začni konať ešte dnes!</p>
+        <p>💡 Tip: Vráť sa k týmto poznámkam každý týždeň a sleduj svoj pokrok.</p>
+    </div>
+
+    <script>
+        function nextSection(currentId, nextId) {
+            console.log(`Prechádzam zo sekcie ${currentId} na ${nextId}`); // debug výpis
+            const currentSection = document.getElementById(currentId);
+            const nextSection = document.getElementById(nextId);
+
+            if (!currentSection || !nextSection) {
+                console.error("Nenašla sa jedna zo sekcií:", currentId, nextId);
+                return;
+            }
+
+            currentSection.classList.add("hidden");
+            nextSection.classList.remove("hidden");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        function checkQuiz(inputId, correctAnswer, resultId) {
+            const userAnswer = document.getElementById(inputId).value.toLowerCase();
+            const result = document.getElementById(resultId);
+            if (userAnswer.includes(correctAnswer.toLowerCase())) {
+                result.textContent = "✅ Správne!";
+                result.style.color = "green";
+            } else {
+                result.textContent = "❌ Nesprávne. Skús to znova.";
+                result.style.color = "red";
+            }
+        }
+    </script>
+</body>
+</html>
